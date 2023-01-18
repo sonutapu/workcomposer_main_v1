@@ -1,0 +1,84 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}User{% endblock  %}
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="container mt-3">
+            <h6>ALL User</h6>
+            <hr/>
+            <div class="container-fluid text-primary">
+                {% for n in getdata1 %}
+                    <div class="row p-2">
+                        <div class="col-sm-3" style="font-size:12px" text-transform:capitalize>
+                            <span><input type="hidden" name="hidrowid" value="{{n.id}}" readonly /></span>
+                            <span>Name : {{n.fname}} {{n.lname}}</span> <br/>
+                            <span>Team : {{n.teamname}}</span> <br/>
+                            <span>Status : {{n.isactive}}</span>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%"> 70% </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3" style="font-size:12px">
+                            <span>Work Time: 00:00:00</span> <br/>
+                            <span>Break Time: 00:00:00</span>
+                        </div>
+                            {% comment %} <div class="col-sm-1"> 
+                                <button type="button" class="btn btn-sm btn-warning" data-toggle="collapse" data-target="#{{n.id}}"> Details </button> 
+                            </div> {% endcomment %}
+
+                        <div class="accordion">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="item{{n.id}}">
+                                    <div class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Details
+                                    </div>
+                                </h2>
+
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="item{{n.id}}" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body" style="border:1px solid #0CF">
+
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <div class="card cardclass">
+                                                    <script>
+                                                        var d = new Date();
+                                                        document.write(d);
+                                                    </script>
+                                                    <br/>
+                                                    Work time: 0
+                                                    <br/>
+                                                    from which away - 00:00:00
+                                                    <br/>
+                                                    Break time: 0
+                                                </div>
+                                            </div>
+
+                                            <div class="col-4">
+                                                <div class="card cardclass"> No tasks </div>
+                                            </div>
+
+                                            <div class="col-4">
+                                                <div class="card cardclass"> No apps </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-1">
+                                            <div class="col-12 screenimg"> No screenshots yet </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr/>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock  %}

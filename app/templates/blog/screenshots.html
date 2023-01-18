@@ -1,0 +1,48 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}Screenshots{% endblock  %}
+{% block content %}
+<div class="content">
+  <div class="container-fluid">
+    <div class="container text-primary">
+      <div class="row">
+        {% for n in getdata1 %}
+            <div class="col-2 card p-2 m-2" style="font-size:11px">
+                <input type="hidden" name="hidrowid" value="{{n.id}}" readonly />
+
+                <span class="text-center">{{n.fname}} {{n.lname}} &nbsp;&nbsp; &nbsp; </span>
+                <div class="container">
+                    <!-- Trigger the modal with a button -->
+                    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal" style="position:center;" >View</button>
+                  
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" role="dialog">
+                      <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Modal Header</h4>
+                          </div>
+                          <div class="modal-body">
+                            <p>This is a small modal.</p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                <div class="col-12 p-2" style="border:1px solid #CCC">
+                    {% load static %}
+                    <img src="{% static 'screenshot.jpg'%}" height="100px" width="140px" />
+                </div>
+            </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock  %}

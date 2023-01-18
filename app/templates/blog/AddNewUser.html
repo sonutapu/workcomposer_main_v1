@@ -1,0 +1,94 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}AddNewUser{% endblock  %}
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div id="container">
+    <!-- Header -->
+    
+        <div id="header">
+            <div id="branding">
+                <h1 id="site-name">Add new user</h1>
+            </div>
+        </div>
+        
+        <!-- END Header -->
+
+        <div class="main" id="main">
+        <div class="content">
+            <!-- Content -->
+            <div id="content" class="colM">
+                <div id="content-main">
+        <div><h3><p style="color:Blue;">SEND INVITATION TO JOIN YOUR ORGANIZATION</p></h3></div>
+        
+    
+        <form method="post" action={% url 'index' %}>
+        {% csrf_token %}
+        <div class="form-group">
+        
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" name="email" placeholder="Invite via email address" Required>
+        <button type="submit" class="btn btn-primary">Send Invitation</button>
+        
+        </div>
+        <div>
+            <select class="form-select" aria-label="Default select example">
+            <option selected>- Select the Team -</option>
+            <option value="1">- Select the Team -</option>
+            <option value="2">Default Team</option>
+            <option value="3">IT</option>
+        </select>
+        </div>
+        
+        </form>
+        </div>
+    
+        <div>
+            <h3><p style="color:Blue;">ADD USER DIRECTLY, WITHOUT INVITATION</p></h3>
+        <form method="post" action={% url 'signup' %}>
+            {% csrf_token %}
+            {% comment %} <div class="form-group">
+            <label for="id">id</label>
+            <input type="text" class="form-control" id="id" name="empid" placeholder="Create a empid" Required>
+            </div> {% endcomment %}
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Create A Username (use only letters and numbers)" Required>
+            </div>
+            <div class="form-group">
+                <label for="fname">First Name</label>
+                <input type="text" class="form-control" id="fname" name="fname" placeholder="Enter Your First Name" Required>
+            </div>
+            <div class="form-group">
+                <label for="lname">Last Name</label>
+                <input type="text" class="form-control" id="lname" name="lname" placeholder="Enter Your Last Name" Required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email_Id</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter Your Email Address" Required>
+            </div>
+            <div class="form-group">
+                <label for="pass1">Password</label>
+                <input type="password" class="form-control" id="pass1" name="pass1" placeholder="Create Your Password" Required>
+            </div>
+            <div class="form-group">
+                <label for="pass2">Confirm Password</label>
+                <input type="password" class="form-control" id="pass2" name="pass2" placeholder="Confirm Your Password" Required>
+            </div>
+            <div class="form-group">
+            <label for="pass2">Team Name</label>
+            <select class="form-select" aria-label="Default select example"input type="teamname" class="form-control" id="teamname" name="teamname" Required>
+            <option value="Select the Team">- Select the Team -</option>
+            <option value="Default Team">Default Team</option>
+            <option value="IT">IT</option>
+            </select>
+            </div>
+            <div class="form-group">
+        
+            <button type="submit" class="btn btn-primary">Add user</button>
+        </div>
+    </div>
+</div>
+
+{% endblock  %}

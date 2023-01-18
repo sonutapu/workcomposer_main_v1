@@ -1,0 +1,179 @@
+
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+        *{
+          list-style: none;
+          text-decoration: none;
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: 'Open Sans', sans-serif;
+        }
+        body{
+          background: #f5f6fa;
+        }
+        .wrapper .sidebar{
+          background: rgb(5, 68, 104);
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 225px;
+          height: 100%;
+          padding: 20px 0;
+          transition: all 0.5s ease;
+        }
+        .wrapper .sidebar .profile{
+          margin-bottom: 30px;
+          text-align: center;
+        }
+        .wrapper .sidebar ul li a{
+          display: block;
+          padding: 13px 30px;
+          border-bottom: 1px solid #10558d;
+          color: rgb(241, 237, 237);
+          font-size: 16px;
+          position: relative;
+        }
+        .wrapper .sidebar ul li a .icon{
+          color: #dee4ec;
+          width: 30px;
+          display: inline-block;
+        }
+        .wrapper .section{
+          width: calc(100% - 225px);
+          margin-left: 225px;
+          transition: all 0.5s ease;
+        }
+        .wrapper .section .top_navbar{
+          background: rgb(7, 105, 185);
+          height: 50px;
+          display: flex;
+          align-items: center;
+          padding: 0 30px;
+        }
+        .wrapper .section .top_navbar .hamburger a{
+          font-size: 28px;
+          color: #f4fbff;
+        }
+        .wrapper .section .top_navbar .hamburger a:hover{
+          color: #a2ecff;
+        }
+        body.active .wrapper .sidebar{
+          left: -225px;
+        }
+        body.active .wrapper .section{
+          margin-left: 0;
+          width: 100%;
+        }
+        /* Style the buttons that are used to open and close the accordion panel */
+        .accordion {
+            background-color: #eee;
+            color: #444;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            outline: none;
+            transition: 0.4s;
+        }
+        
+        /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+        .active, .accordion:hover {
+            background-color: #ccc;
+        }
+        
+        /* Style the accordion panel. Note: hidden by default */
+        .panel {
+            padding: 0 18px;
+            background-color: white;
+            display: none;
+            overflow: hidden;
+        }
+        .accordion:after {
+            content: '\02795'; /* Unicode character for "plus" sign (+) */
+            font-size: 13px;
+            color: #777;
+            float: right;
+            margin-left: 5px;
+        }
+        
+        .active:after {
+            content: "\2796"; /* Unicode character for "minus" sign (-) */
+        }
+
+        /* <style type="text/css"> */
+        .cardclass{
+            padding:10px;
+            font-size:13px;
+            color:blue
+        }
+        .screenimg{
+            border: 1px solid #CCC;
+            padding : 10px;
+            font-size:13px;
+        }
+        img  {
+            height:250px;
+            width:250px;
+            
+          } 
+   
+      /* <style type="text/css"> */
+        .cardclass{
+            padding:10px;
+            font-size:13px;
+            color:blue
+        }
+        .screenimg{
+            border: 1px solid #CCC;
+            padding : 10px;
+            font-size:13px;
+        }
+/*   
+      <style type="text/css"> */
+        .cardclass{
+            padding:10px;
+            font-size:13px;
+            color:blue
+        }
+        .screenimg{
+            border: 1px solid #CCC;
+            padding : 10px;
+            font-size:13px;
+        }
+        .box{
+            border: 2px solid black;
+            border-radius: 10px;
+            padding:10px;
+            width:250px;
+            height:140px;
+           
+            } 
+        
+      
+      /* <style type="text/css"> */
+        .cardclass{
+            padding:10px;
+            font-size:13px;
+            color:blue
+        }
+        .screenimg{
+            border: 1px solid #CCC;
+            padding : 10px;
+            font-size:13px;
+        }
+    
+    
+        img {
+          border: 1px solid #ddd;
+          border-radius: 4px;
+          padding: 5px;
+          width: 70px;
+        }
+        img  {
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          
+        }
+

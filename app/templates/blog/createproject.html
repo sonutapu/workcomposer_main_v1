@@ -1,0 +1,76 @@
+{% comment %} {% extends "blog/base.html" %}
+{% load static %} {% endcomment %}
+{% block contenttwo %} 
+  <head>
+    <title>Projectname</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function()
+      {
+        $('.chkvalues').click(function()
+        {
+          var txt="";
+          $('.chkvalues:checked').each(function()
+          {
+            txt+=$(this).val()+","
+
+          });
+          txt=txt.substring(0,txt.length-1);
+          $('#txtvalues').val(txt);
+
+        });
+
+      }); 
+      
+    </script>
+   
+  </head>
+  <body>
+    <center>
+      <h1>insert</h1>
+      <hr/>
+      <form method="POST" action={% url 'createproject' %}>
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="teamname">Project Title :</label>
+          <input type="text" class="form-control" name="Project_Name" id="projecttitle"  autocomplete='off' Required />
+        </div>
+        <table>
+          <th>AssignedTeam</th>
+          </br>
+          <th>mark</th>
+
+        {% for n in service %}
+        <tr>
+          </br>
+          <td>
+            <h3>{{n.Team_Name}}</h3>
+          </td>
+          <td> <input type="checkbox" value="{{n.id}}" class="chkvalues" </td>
+        </tr> 
+        {% endfor %}
+      </table>
+      
+        <input type="text" name="Assigned_Team" id="txtvalues"/>
+        <input id="but1" type="submit" value="Insert Record" onclick="return alert('Record inserted successfully')"/>
+        <a  type="button" class="btn btn-outline-primary" href="{% url 'index' %}"><h3>Back</h3> </a>
+    </body>
+
+    </form>
+
+    </center>
+  </body>
+{% endblock contenttwo %}
+
+
+     
+
+
+
+ 
+    
+
+
+     
+
+

@@ -1,0 +1,45 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}Screen Capture{% endblock %}
+{% block content %}
+
+    <div class="content">
+        <div class="container-fluid">
+
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Take Screenshot With Tracking Enable</label>
+            
+                <input type="radio" class="btn-check" name="options-outlined" id="success-outlined" autocomplete="off" checked>
+                <label class="btn btn-outline-success" for="success-outlined">Enable</label>
+                <input type="radio" class="btn-check" name="options-outlined" id="danger-outlined" autocomplete="off">
+                <label class="btn btn-outline-danger" for="danger-outlined">Disable</label>
+            </div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+                <label class="form-check-label" for="flexSwitchCheckDefault">Screenshot time interval(In-Minutes)</label>
+                
+                <!-- Example split danger button -->
+                <div class="btn-group">
+                    <button type="button" class="btn btn-secondary">Action</button>
+                    <button type="button" class="btn btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="visually-hidden">Toggle Dropdown</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">1</a></li>
+                    <li><a class="dropdown-item" href="#">2</a></li>
+                    <li><a class="dropdown-item" href="#">3</a></li>
+                    <li><a class="dropdown-item" href="#">4</a></li>
+                    <li><a class="dropdown-item" href="#">5</a></li>
+                    <li><a class="dropdown-item" href="#">6</a></li>
+                    <li><a class="dropdown-item" href="#">7</a></li>
+                    <li><a class="dropdown-item" href="#">8</a></li>
+                    <li><a class="dropdown-item" href="#">9</a></li>
+                    <li><a class="dropdown-item" href="#">10</a></li>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock  %}

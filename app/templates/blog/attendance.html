@@ -1,0 +1,26 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}Attendance{% endblock  %}
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="container mt-3">
+            <div class="container-fluid text-primary">
+                {% for n in getdata1 %}
+                    <div class="row p-2">
+                        <div class="col-sm-3" style="font-size:12px" text-transform:capitalize>
+                            <span><input type="hidden" name="hidrowid" value="{{n.id}}" readonly /></span>
+                            <span>Name : {{n.fname}} {{n.lname}}</span> <br/>
+                        </div>
+
+                        <div class="col-sm-3" style="font-size:12px">
+                            <span>login Time: 10:00:00</span> <br/>
+                            <span>Total Worked Time: {{workedtime}}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock  %}

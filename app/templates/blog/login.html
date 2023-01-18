@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html lang="en-us" dir="ltr">
+  <head>
+    <title>Sign In</title>
+    <link rel="stylesheet" href="/static/admin/css/base.css">
+    <link rel="stylesheet" href="/static/admin/css/dark_mode.css">
+    <link rel="stylesheet" href="/static/admin/css/nav_sidebar.css">
+    <script src="/static/admin/js/nav_sidebar.js" defer></script>
+    <link rel="stylesheet" href="/static/admin/css/login.css">
+    <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=2.0, maximum-scale=2.0">
+    <link rel="stylesheet" href="/static/admin/css/responsive.css">
+    <meta name="robots" content="NONE,NOARCHIVE">
+  </head>
+
+  <body class=" login" data-admin-utc-offset="0">
+    <div id="container">
+      <div id="header">
+        <div id="branding">
+          <h1 id="site-name"><a href="/signin">WorkComposer</a></h1>
+        </div>
+      </div>
+    
+      <div class="main" id="main">
+        <div class="content">
+          <div id="content" class="colM">
+            <div id="content-main">
+              <form method="POST" action={% url 'login' %}>
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="username" class="required">Username:</label>
+                  <input type="text" name="username" autofocus autocapitalize="none" autocomplete="off" required id="username">
+                </div>
+            
+                <div class="form-group">
+                  <label for="pass1" class="required">Password:</label>
+                  <input type="password" name="pass1" autocomplete="off" required id="pass1">
+                </div>
+            
+                <div class="submit-row">
+                  <button type="submit" class="btn btn-primary">Log IN</button>
+                  <button type="submit"><a href="{% url 'signup' %}">SignUp</a></button>
+                </div>
+              </form>
+            </div>
+  
+            <br class="clear">
+          </div>
+          <!-- END Content -->
+          <div id="footer"></div>
+        </div>
+      </div>
+    </div>
+    <!-- END Container -->
+  </body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} {% extends 'blog/base.html' %}
+{% load static %}
+<!-- {% block title %}Login{% endblock  %} -->
+{% block content %}
+<div class="content">
+  <div class="container-fluid">
+    <div id="container">
+      <div id="header">
+        <div id="branding">
+          <h1 id="site-name"><a href="{% url 'login' %}">WorkComposer</a></h1>
+        </div>
+      </div>
+      <div class="main" id="main">
+        <div class="content">
+          <div id="content" class="colM">
+            <div id="content-main">
+              <form method="POST" action={% url 'login' %}>
+                {% csrf_token %}
+                <div class="form-group">
+                  <label for="username" class="required">Username:</label>
+                  <input type="text" name="username" autofocus autocapitalize="none" autocomplete="off" required id="username">
+                </div>
+            
+                <div class="form-group">
+                  <label for="pass1" class="required">Password:</label>
+                  <input type="password" name="pass1" autocomplete="off" required id="pass1">
+                </div>
+            
+                <div class="submit-row">
+                  <button type="submit" class="btn btn-primary">Sign In</button>
+                  <button type="submit"><a href="{% url 'signup' %}">SignUp</a></button>
+                </div>
+              </form>
+            </div>
+
+            <br class="clear">
+          </div>
+          <!-- END Content -->
+          <div id="footer"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- END Container -->
+
+{% endblock  %} {% endcomment %}

@@ -1,0 +1,48 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}Userdetails{% endblock  %}
+{% block content %}
+
+<!-- Container -->
+<div id="container" >
+    <div class="main" id="main">
+      <div class="content">
+        <!-- Content -->
+        <div id="content" class="colM">
+          {% load static %}
+          
+          <img src="{% static 'img_avatar2.png'%}">
+          <form method="post" action="">
+            {% csrf_token %}
+      
+            <div class="form-group">
+              <label for="name">Name : {{request.session.username}} </label>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email : {{request.session.useremail}} </label>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Status : {{request.session.status}} </label>
+            </div>
+  
+          </form>
+        </div>
+
+        <div class="submit-row">
+          <a href="{% url 'passwordchange' %}">Change Password</a>
+        </div>
+  
+          <br class="clear">
+        </div>
+        <!-- END Content -->
+        <div id="footer"></div>
+      </div>
+    </div>
+</div>
+<!-- END Container -->
+
+{% endblock  %}
+
+{% comment %} <form method="post" action={% url 'signin' %}> {% endcomment %}
