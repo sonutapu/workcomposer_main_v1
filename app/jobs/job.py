@@ -2,6 +2,8 @@ from django.conf import settings
 
 def schedule_api():
     from app import mouseidle
+def schedule_api2():
+    from app import mouseidle
     
 
 def schedule_api3():

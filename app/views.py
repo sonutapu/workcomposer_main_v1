@@ -1,4 +1,6 @@
 # import email
+import django
+django.setup()
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.views import View
@@ -23,7 +25,13 @@ from django.template.loader import render_to_string
 from . models import team_table
 from django.views.decorators.cache import cache_control
 from django.contrib.auth.decorators import login_required
-
+import time
+import cv2
+import pyautogui
+from datetime import datetime
+# from apscheduler.schedulers.background import BackgroundScheduler
+import multiprocessing
+from app.jobs.job import schedule_api,schedule_api2,schedule_api3,schedule_api4
 
 def components(request):
     return render(request,'blog/components.html')
@@ -82,6 +90,61 @@ def index(request):
 # success view
 def success(request):
     return render(request,'blog/success.html')
+# start recording
+def start_recording(img=None):
+    video_file = "screen_recording.avi"
+    # duration = x*60  # in seconds
+    screen_size = (1920, 1080)
+    fps = 15.0
+
+    fourcc = cv2.VideoWriter_fourcc(*"XVID")
+    out = cv2.VideoWriter(video_file, fourcc, fps, screen_size)
+    frame = np.array(img)
+    start_time = time.time()
+    # print(f'start time : {start_time}')
+    while True:
+        img = pyautogui.screenshot()
+        frame = np.array(img)
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        out.write(frame)
+        # cv2.imshow("Recording", frame)
+        # if (time.time() - start_time) > duration:
+        print(f'current time : {time.time()}')
+        # if int(round((time.time() - start_time))) > 0:
+        #     print(f'duration time : {int(round((time.time() - start_time)))}')
+        #     continue
+        if cv2.waitKey(1) == ord("q"):
+            break
+    out.release()
+    cv2.destroyAllWindows()
+#  start_recording_speci_time
+def start_recording_speci_time(img=None):
+    video_file = "screen_recording.avi"
+    duration = duration*60  # in seconds
+    screen_size = (1920, 1080)
+    fps = 15.0
+
+    fourcc = cv2.VideoWriter_fourcc(*"XVID")
+    out = cv2.VideoWriter(video_file, fourcc, fps, screen_size)
+    frame = np.array(img)
+    start_time = time.time()
+    print(f'start time : {start_time}')
+    while True:
+        img = pyautogui.screenshot()
+        frame = np.array(img)
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        out.write(frame)
+        # cv2.imshow("Recording", frame)
+        # if (time.time() - start_time) > duration:
+        print(f'current time : {time.time()}')
+        # if int(round((time.time() - start_time))) > 0:
+        #     print(f'duration time : {int(round((time.time() - start_time)))}')
+        #     continue
+        if cv2.waitKey(1) == ord("q"):
+            break
+    out.release()
+    cv2.destroyAllWindows()
+
 
 # for signup(registration page)below code written
 def signup(request):
@@ -129,10 +192,7 @@ def signup(request):
     else:   
         return render(request, "blog/signup.html")
 ##################################################################### Create scheduler
-from datetime import datetime
-# from apscheduler.schedulers.background import BackgroundScheduler
-import multiprocessing
-from app.jobs.job import schedule_api,schedule_api3,schedule_api4
+
 ######################## NOT IN USE #####################################
 # global scheduler
 # scheduler=BackgroundScheduler()
@@ -167,16 +227,21 @@ def login(request):
             loginDate=datetime.now()
             loginTime = datetime.now().strftime("%H:%M:%S")
 
-            global proc,proc1,proc3,proc4
+            global proc1,proc2,proc3,proc4,proc5,proc6
             proc1 = multiprocessing.Process(target=schedule_api, args=())
-            # proc1= multiprocessing.Process(target=schedule_api2, args=())
+            proc2= multiprocessing.Process(target=schedule_api2, args=())
             proc3= multiprocessing.Process(target=schedule_api3, args=())
             proc4= multiprocessing.Process(target=schedule_api4, args=())
+            proc5= multiprocessing.Process(target=start_recording, args=())
+            duration=1
+            proc6= multiprocessing.Process(target=start_recording_speci_time, args=(duration,))
 
-            proc.start()
-            # proc1.start()
+            proc1.start()
+            proc2.start()
             proc3.start()
             proc4.start()
+            proc5.start()
+            proc6.start()
 
             ennn = Logtable_time(master_id=request.session["id"],login_time=loginTime,user_id=request.session["sesuserid"],Date=loginDate)
             ennn.save()
@@ -200,10 +265,13 @@ def signout(request):
         print(logouttime)
         # workduration = logouttime-logintime
         
-        proc.terminate()
-        # proc1.terminate()
+        proc1.terminate()
+        proc2.terminate()
         proc3.terminate()
         proc4.terminate()
+        proc5.terminate()
+        proc6.terminate()
+
         file=open('mouseidle.csv','r')
         x=file.read()
         print("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu",x)
