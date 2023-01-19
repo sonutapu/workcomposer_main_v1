@@ -148,33 +148,33 @@ def start_recording(img=None):
             break
     out.release()
     cv2.destroyAllWindows()
+    
 #  start_recording_speci_time
-# def record_exact_time(duration,img=None):
-#     video_file = "record_exact_time.avi"
-#     duration = duration*60  # in seconds
-#     screen_size = (1920, 1080)
-#     fps = 15.0
+def record_exact_time(duration,img=None):
+    video_file = "record_exact_time.avi"
+    duration = duration*60  # in seconds
+    screen_size = (1920, 1080)
+    fps = 15.0
 
-#     fourcc = cv2.VideoWriter_fourcc(*"XVID")
-#     out = cv2.VideoWriter(video_file, fourcc, fps, screen_size)
-#     frame = np.array(img)
-#     start_time = time.time()
-#     # print(f'start time : {start_time}')
-#     while True:
-#         img = pyautogui.screenshot()
-#         frame = np.array(img)
-#         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-#         out.write(frame)
-#         # cv2.imshow("Recording", frame)
-#         if (time.time() - start_time) > duration:
-#             print(f'current time : {time.time()}')
-#         if int(round((time.time() - start_time))) > 0:
-#             print(f'duration time : {int(round((time.time() - start_time)))}')
-#             continue
-#         if cv2.waitKey(1) == ord("q"):
-#             break
-#     out.release()
-#     cv2.destroyAllWindows()
+    fourcc = cv2.VideoWriter_fourcc(*"XVID")
+    out = cv2.VideoWriter(video_file, fourcc, fps, screen_size)
+    frame = np.array(img)
+    start_time = time.time()
+    # print(f'start time : {start_time}')
+    while True:
+        img = pyautogui.screenshot()
+        frame = np.array(img)
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        out.write(frame)
+        # cv2.imshow("Recording", frame)
+        if (time.time() - start_time) == duration:
+            # print(f'current time : {time.time()}')
+            break
+        
+        if cv2.waitKey(1) == ord("q"):
+            break
+    out.release()
+    cv2.destroyAllWindows()
 
 
 # for signup(registration page)below code written
@@ -257,14 +257,14 @@ def login(request):
             # Inserting Login time of an user
             loginDate=datetime.now()
             loginTime = datetime.now().strftime("%H:%M:%S")
-            global proc1,proc2,proc3,proc4,proc5,proc7,proc8
+            global proc1,proc2,proc3,proc4,proc5,proc6,proc7,proc8
             proc1 = multiprocessing.Process(target=schedule_api, args=())
             proc2= multiprocessing.Process(target=schedule_api2, args=())
             proc3= multiprocessing.Process(target=schedule_api3, args=())
             proc4= multiprocessing.Process(target=schedule_api4, args=())
             proc5= multiprocessing.Process(target=start_recording, args=())
-            # duration=1
-            # proc6= multiprocessing.Process(target=record_exact_time, args=(duration,))
+            duration=1
+            proc6= multiprocessing.Process(target=record_exact_time, args=(duration,))
             proc7= multiprocessing.Process(target=take_screenshots, args=())
             proc8= multiprocessing.Process(target=facercgn, args=())
 
@@ -273,7 +273,7 @@ def login(request):
             proc3.start()
             proc4.start()
             proc5.start()
-            # proc6.start()
+            proc6.start()
             proc7.start()
             proc8.start()
 
@@ -304,7 +304,7 @@ def signout(request):
         proc3.terminate()
         proc4.terminate()
         proc5.terminate()
-        # proc6.terminate()
+        proc6.terminate()
         proc7.terminate()
         proc8.terminate()
 
@@ -460,7 +460,7 @@ def createteam(request):
             # createdate=request.POST['createon']
             createdate=datetime.now()
             # cc = datetime.now()
-            # createdate = cc.strftime("%Y%M%D%H%M%S")        
+            # createdate = cc.strftime("%Y%M%D%H%M%S")         
             en = team_table(Team_Name=teamname,Is_Active=status,Create_on=createdate)
             en.save()
             messages.success(request,"Your team hasbeen successfully created!")
