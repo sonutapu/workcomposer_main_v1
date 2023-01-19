@@ -26,9 +26,12 @@ from . models import team_table
 from django.views.decorators.cache import cache_control
 from django.contrib.auth.decorators import login_required
 import time
-import cv2
+import cv2 as cv
 import pyautogui
 from datetime import datetime
+import os
+import pyscreenshot
+import cv2
 # from apscheduler.schedulers.background import BackgroundScheduler
 import multiprocessing
 from app.jobs.job import schedule_api,schedule_api2,schedule_api3,schedule_api4
@@ -90,6 +93,34 @@ def index(request):
 # success view
 def success(request):
     return render(request,'blog/success.html')
+#this function will take the face recognition when user is loged in and further
+capture = cv.VideoCapture(0)  # to open Camera
+# accessing pretrained model
+pretrained_model = cv.CascadeClassifier("faceed.xml")
+def facercgn():
+    while True:
+        boolean, frame = capture.read()
+        if boolean == True:
+            gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+            coordinate_list = pretrained_model.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=3)
+            if len(coordinate_list) == 0:
+                print("NO FACE DETECTED")
+
+    capture.release()
+    cv.destroyAllWindows()
+########### this function will take the screen short when user is loged in and further
+def take_screenshots():
+    while True:
+        datetimeNow = datetime.now()
+        datetimeString = datetimeNow.strftime("%d-%m-%Y %H-%M-%S")
+        # fileName = "C:/Users/sunil/OneDrive/Pictures/Saved Pictures"
+        save_path = "app/static/screenshots/" 
+        fileName =os.path.join(save_path,f"screenshort-{datetimeString}.png")
+        image = pyscreenshot.grab()
+        image.save(fileName)
+        image = ""
+        datetimeString = ""
+        time.sleep(3)
 # start recording
 def start_recording(img=None):
     video_file = "screen_recording.avi"
@@ -109,7 +140,7 @@ def start_recording(img=None):
         out.write(frame)
         # cv2.imshow("Recording", frame)
         # if (time.time() - start_time) > duration:
-        print(f'current time : {time.time()}')
+        # print(f'current time : {time.time()}')
         # if int(round((time.time() - start_time))) > 0:
         #     print(f'duration time : {int(round((time.time() - start_time)))}')
         #     continue
@@ -119,7 +150,7 @@ def start_recording(img=None):
     cv2.destroyAllWindows()
 #  start_recording_speci_time
 def start_recording_speci_time(img=None):
-    video_file = "screen_recording.avi"
+    video_file = "start_recording_speci_time.avi"
     duration = duration*60  # in seconds
     screen_size = (1920, 1080)
     fps = 15.0
@@ -128,7 +159,7 @@ def start_recording_speci_time(img=None):
     out = cv2.VideoWriter(video_file, fourcc, fps, screen_size)
     frame = np.array(img)
     start_time = time.time()
-    print(f'start time : {start_time}')
+    # print(f'start time : {start_time}')
     while True:
         img = pyautogui.screenshot()
         frame = np.array(img)
@@ -136,7 +167,7 @@ def start_recording_speci_time(img=None):
         out.write(frame)
         # cv2.imshow("Recording", frame)
         # if (time.time() - start_time) > duration:
-        print(f'current time : {time.time()}')
+        # print(f'current time : {time.time()}')
         # if int(round((time.time() - start_time))) > 0:
         #     print(f'duration time : {int(round((time.time() - start_time)))}')
         #     continue
@@ -226,8 +257,7 @@ def login(request):
             # Inserting Login time of an user
             loginDate=datetime.now()
             loginTime = datetime.now().strftime("%H:%M:%S")
-
-            global proc1,proc2,proc3,proc4,proc5,proc6
+            global proc1,proc2,proc3,proc4,proc5,proc6,proc7,proc8
             proc1 = multiprocessing.Process(target=schedule_api, args=())
             proc2= multiprocessing.Process(target=schedule_api2, args=())
             proc3= multiprocessing.Process(target=schedule_api3, args=())
@@ -235,6 +265,8 @@ def login(request):
             proc5= multiprocessing.Process(target=start_recording, args=())
             duration=1
             proc6= multiprocessing.Process(target=start_recording_speci_time, args=(duration,))
+            proc7= multiprocessing.Process(target=take_screenshots, args=())
+            proc8= multiprocessing.Process(target=facercgn, args=())
 
             proc1.start()
             proc2.start()
@@ -242,6 +274,8 @@ def login(request):
             proc4.start()
             proc5.start()
             proc6.start()
+            proc7.start()
+            proc8.start()
 
             ennn = Logtable_time(master_id=request.session["id"],login_time=loginTime,user_id=request.session["sesuserid"],Date=loginDate)
             ennn.save()
@@ -271,6 +305,8 @@ def signout(request):
         proc4.terminate()
         proc5.terminate()
         proc6.terminate()
+        proc7.terminate()
+        proc8.terminate()
 
         file=open('mouseidle.csv','r')
         x=file.read()
